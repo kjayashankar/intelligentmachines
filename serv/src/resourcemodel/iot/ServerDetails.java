@@ -2,6 +2,8 @@ package resourcemodel.iot;
 
 public class ServerDetails {
 
+	private ID _id;
+	
 	private String shortServer;
 	
 	private String lifeTime;
@@ -90,6 +92,14 @@ public class ServerDetails {
 
 	public void setRegistration(String registration) {
 		this.registration = registration;
+	}
+
+	public ID get_id() {
+		return _id;
+	}
+
+	public void set_id(ID _id) {
+		this._id = _id;
 	}
 	
 }

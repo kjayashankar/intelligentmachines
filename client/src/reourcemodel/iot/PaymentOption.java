@@ -3,12 +3,14 @@ package reourcemodel.iot;
 public class PaymentOption
 {
 
+	private ID _id;
+	
 	private String plan;
 	 
 	private String billDate;
 	 
 	private String amount;
-	 
+	
 	private CardDetails cardDetails;
 	
 	public String getPlan() {
@@ -35,7 +37,12 @@ public class PaymentOption
 	}
 	public void setCardDetails(CardDetails cardDetails) {
 		this.cardDetails = cardDetails;
+	}	 
+	public ID get_id() {
+		return _id;
 	}
-
+	public void set_id(ID _id) {
+		this._id = _id;
+	}
 
 }

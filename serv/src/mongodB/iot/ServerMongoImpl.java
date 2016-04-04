@@ -2,13 +2,12 @@ package mongodB.iot;
 
 import java.util.Scanner;
 
-import reourcemodel.iot.CardDetails;
-import reourcemodel.iot.PaymentOption;
+import resourcemodel.iot.ServerDetails;
 
-public class ClientMongoImpl {
+public class ServerMongoImpl {
 
 	public static void main(String[] args) {
-
+		
 		Scanner in = new Scanner ( System.in );
 	    display_menu();
 	    int index = in.nextInt();
@@ -21,26 +20,24 @@ public class ClientMongoImpl {
 		in.close();
 	}
 	
-	public static void create(){
+public static void create(){
 		
 		MongoOperations mOperations = new MongoOperations();
 
-		PaymentOption paymentOp = new PaymentOption();
+		ServerDetails serverDetails = new ServerDetails();
 		
-		paymentOp.setAmount("345");
-		paymentOp.setPlan("basic");
-		paymentOp.setBillDate("05/04/2016");
-		
-		CardDetails cardDetails = new CardDetails("cardNumber","cvv","expiryDate");
-		cardDetails.setEmail("kjayashankar@yahoo.com");
-		cardDetails.setContactNumber("669-292-6025");
-		
-		paymentOp.setCardDetails(cardDetails);
+		serverDetails.setBinding("Binding_default");
+		serverDetails.setLifeTime("18600");
+		serverDetails.setNotification("notifications_push");
+		serverDetails.setShortServer("");
+		serverDetails.setMaxPeriod("86400");
+		serverDetails.setRegistration("registration");
+		serverDetails.setDisable("false");
 		
 		/**
 		 * CREATE RECORD 
 		 */
-		mOperations.createRecord(paymentOp,"client1" ,"paymentOption" );
+		mOperations.createRecord(serverDetails,"server1" ,"serverDetails" );
 	}
 	
 	public static void read(){
@@ -50,16 +47,15 @@ public class ClientMongoImpl {
 		/**
 		 * READ RECORD		
 		 */
-		PaymentOption readPay = mOperations.readRecord(PaymentOption.class,"client1","paymentOption");
+		ServerDetails sDetails = mOperations.readRecord(ServerDetails.class,"server1","serverDetails");
 		
-		System.out.println("Bill Date : "+readPay.getBillDate());
-		System.out.println("Plan : "+readPay.getPlan());
-		System.out.println("Amount : "+readPay.getAmount());
-		System.out.println("Card Number : "+readPay.getCardDetails().getCardNumber());
-		System.out.println("CVV : "+readPay.getCardDetails().getCvv());
-		System.out.println("Expiry Date : "+readPay.getCardDetails().getExpiryDate());
-		System.out.println("Contact number : "+readPay.getCardDetails().getContactNumber());
-		System.out.println("Email : "+readPay.getCardDetails().getEmail());
+		System.out.println("ShortServer  : "+sDetails.getShortServer());
+		System.out.println("Binding : "+sDetails.getBinding());
+		System.out.println("LifeTime : "+sDetails.getLifeTime());
+		System.out.println("Notification : "+sDetails.getNotification());
+		System.out.println("Max Period : "+sDetails.getMaxPeriod());
+		System.out.println("Registration : "+sDetails.getRegistration());
+		System.out.println("Disable : "+sDetails.getDisable());
 		
 	}
 	
@@ -70,7 +66,7 @@ public class ClientMongoImpl {
 		/**
 		 * UPDATE RECORD
 		 */
-		mOperations.updateRecord("client1", "paymentOption", key, value);
+		mOperations.updateRecord("server1", "serverDetails", key, value);
 	}
 	
 	public static void delete() {
@@ -80,7 +76,7 @@ public class ClientMongoImpl {
 		/**
 		 * DELETE RECORD
 		 */
-		mOperations.deleteRecord("client1","paymentOption");
+		mOperations.deleteRecord("server1","serverDetails");
 	}
 
 	private static void menu(int index) {
@@ -100,7 +96,7 @@ public class ClientMongoImpl {
 	    	  String key = b.next();
 	    	  String value = b.next();
 	    	  b.close();*/
-			update("amount","900");
+			update("notification","hide_notification");
 	        break;
 			
 	      case 4:

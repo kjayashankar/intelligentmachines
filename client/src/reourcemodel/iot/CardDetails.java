@@ -12,6 +12,10 @@ public class CardDetails {
 	
 	private String contactNumber;
 
+	public CardDetails() {
+		super();
+	}
+
 	public String getCardNumber() {
 		return CardNumber;
 	}

@@ -9,6 +9,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+
 public class MongoOperations {
 	
 	public boolean deleteRecord(String databaseName , String collection) {
@@ -24,8 +25,7 @@ public class MongoOperations {
 		return true;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public < T > T  readRecord(String className, String databaseName , String collection){
+	public < T > T  readRecord(Class<T> class1, String databaseName , String collection){
 		
 		MongoClient mongoC = new MongoClient("localhost", 27017);
 		 MongoDatabase mongoDB = mongoC.getDatabase(databaseName);
@@ -36,7 +36,7 @@ public class MongoOperations {
 		 try {
 		 reg = (T) (new ObjectMapper()).
 				 readValue(document.first().toJson().replace("$oid", "oid"), 
-						 Class.forName(className));
+						 class1);
 		 }
 		 catch(Exception e) {
 			e.printStackTrace(); 
@@ -69,7 +69,7 @@ public class MongoOperations {
 	}
 	
 	@SuppressWarnings("resource")
-	public boolean updateRecord(String databaseName , String collection , String updateKey, String updateValue) {
+	public <T> boolean updateRecord (String databaseName , String collection , String updateKey, String updateValue) {
 		
 		try{
 			MongoClient mongoC = new MongoClient("localhost", 27017);
@@ -79,6 +79,7 @@ public class MongoOperations {
 			System.out.println(document.first());
 			JSONObject jSON = new JSONObject(document.first());
 			System.out.println(" JSON ===="+jSON.toString());
+			
 			jSON.put(updateKey, updateValue);
 			jSON.remove("_id");
 			mongoDB.getCollection(collection).updateOne(document.first(),
