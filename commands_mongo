@@ -1,0 +1,39 @@
+use server
+db.createCollection("operations")
+db.operations.insert([{clientID: 98723467, time: '00:47 04/04/2016',temperature: 35}])
+
+db.createCollection("payment")
+db.payment.insert([{clientID: 98723467, billDate:'04/01/2016', amount: '$50', plantype:'Basic', email: 'smartrefri@gmail.com', phone: 6694357823}])
+
+db.createCollection("usage")
+db.usage.insert([{clientID: 98723467, requests: 1, response: 1, upgrade: 'No'}])
+
+db.createCollection("client")
+db.client.insert([{clientID:98723467, firmwareVer:1.1}])
+
+db.createCollection("serverDetails")
+db.serverDetails.insert([{shortServerID: 101, lifetime: 86400, binding:'U', notification: 'True'}])
+
+use client
+db.createCollection("deviceOperations")
+db.deviceOperations.insert([{clientID: 98723467, time: '00:47 04/04/2016',temperature: 35}])
+
+db.createCollection("tokenStore")
+db.tokenStore.insert([{clientID:98723467 , serverURL:'http://localhost:8017/LWM2MClient/lwm2m/3/0/discover/China'}])
+
+db.createCollection("payment")
+db.payment.insert([{clientID: 98723467, billDate:'04/01/2016', amount: '$50', cardNo: '432089071245', pinExpiry:'09/2020', email: 'smartrefri@gmail.com', cvv: 430}])
+
+db.createCollection("clientDetails")
+db.clientDetails.insert([{firmwareVer: 1.1, lifetime: 86400, serialNo: 98723467, manufacturer: 'LG', modelNo: 'X123G4', bindingMode:'U'}]
+
+db.createCollection("primaryInfo")
+db.primaryInfo.insert([{bootstrapURL:'"http://localhost:8017/LWM2MClient/lwm2m/3/0/discover/bootstrap', clientID: 98723467}])
+
+
+use bootstrap
+db.createCollection("registerProducts")
+db.registerProducts.insert([{manufacturer: 'LG', modelNo: 'X123G4', serialNo: 98723467, firmwareVer:1.1,location:'India',presentLocation:'China'}])
+
+
+
