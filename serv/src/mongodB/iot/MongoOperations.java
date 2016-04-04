@@ -1,9 +1,7 @@
 package mongodB.iot;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.bson.Document;
+import org.json.JSONObject;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
@@ -12,10 +10,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 public class MongoOperations {
-
-	String databaseName ="";
 	
-	public boolean deleteRecord(String collection) {
+	public boolean deleteRecord(String databaseName , String collection) {
 		MongoClient mongoC = new MongoClient("localhost", 27017);
 		
 		try{
@@ -29,7 +25,7 @@ public class MongoOperations {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public < T > T  readRecord(String className, String collection){
+	public < T > T  readRecord(String className, String databaseName , String collection){
 		
 		MongoClient mongoC = new MongoClient("localhost", 27017);
 		 MongoDatabase mongoDB = mongoC.getDatabase(databaseName);
@@ -51,16 +47,16 @@ public class MongoOperations {
 		return reg;
 	}
 	
-	public boolean insertRecord(HashMap<String, String> map, String collection ) {
+	public <T> boolean createRecord(T inputRecord, String dB , String collection ) {
+
+		JSONObject jObj = new JSONObject(inputRecord);
 
 		MongoClient mongoC = new MongoClient("localhost", 27017);
 
 		try{
-		 MongoDatabase mongoDB = mongoC.getDatabase(databaseName);
+		 MongoDatabase mongoDB = mongoC.getDatabase(dB);
 		 MongoCollection<Document> mongoCollection = mongoDB.getCollection(collection);
-		 Map<String, Object> map1 = new HashMap<String,Object>();
-		 map1.putAll(map);
-		 mongoCollection.insertOne(new Document(map1));
+		 mongoCollection.insertOne(Document.parse(jObj.toString()));
 		}
 		catch(Exception e) {
 			e.printStackTrace();
