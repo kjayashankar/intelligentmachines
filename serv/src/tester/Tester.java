@@ -7,6 +7,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import mongodB.iot.MongoOperations;
 import resourcemodel.iot.ServerDetails;
 
 public class Tester {
@@ -18,11 +19,9 @@ public class Tester {
 		sDetails.setDisable("blah");
 		sDetails.setNotification("blah");
 		sDetails.setShortServer("blah");
-		/*sDetails.setBinding("blah");
-		sDetails.setBinding("blah");
-		sDetails.setBinding("blah");*/
 
-		new Tester().createRecord(sDetails, "");
+		MongoOperations mnp = new MongoOperations();
+		mnp.updateRecord("tester","tester","notification","finalee!!");
 	}
 	
 	public <T> boolean createRecord(T inputRecord, String collection ) {

@@ -67,4 +67,25 @@ public class MongoOperations {
 		}
 		return true;
 	}
+	
+	@SuppressWarnings("resource")
+	public boolean updateRecord(String databaseName , String collection , String updateKey, String updateValue) {
+		
+		try{
+			MongoClient mongoC = new MongoClient("localhost", 27017);
+			MongoDatabase mongoDB = mongoC.getDatabase(databaseName);
+			MongoCollection<Document> mongoCollection = mongoDB.getCollection(collection);
+			FindIterable<Document> document = mongoCollection.find();
+			System.out.println(document.first());
+			JSONObject jSON = new JSONObject(document.first());
+			System.out.println(" JSON ===="+jSON.toString());
+			jSON.put(updateKey, updateValue);
+			jSON.remove("_id");
+			mongoDB.getCollection(collection).updateOne(document.first(),
+			        new Document("$set", new Document(Document.parse(jSON.toString()))));
+			return true;
+		}
+		catch(Exception e) { e.printStackTrace(); return false;}
+		
+	}
 }
