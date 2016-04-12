@@ -19,6 +19,16 @@
 	<classpathentry kind="lib" path="jars/mongodb-driver-3.0.4.jar"/>
 	<classpathentry kind="lib" path="jars/mongodb-driver-core-3.2.2.jar"/>
 	<classpathentry kind="lib" path="jars/json-20090211.jar"/>
+	<classpathentry kind="lib" path="jars/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="jars/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="jars/fluent-hc-4.5.1.jar"/>
+	<classpathentry kind="lib" path="jars/httpclient-4.5.1.jar"/>
+	<classpathentry kind="lib" path="jars/httpclient-cache-4.5.1.jar"/>
+	<classpathentry kind="lib" path="jars/httpclient-win-4.5.1.jar"/>
+	<classpathentry kind="lib" path="jars/httpcore-4.4.3.jar"/>
+	<classpathentry kind="lib" path="jars/httpmime-4.5.1.jar"/>
+	<classpathentry kind="lib" path="jars/jna-4.1.0.jar"/>
+	<classpathentry kind="lib" path="jars/jna-platform-4.1.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/client"/>

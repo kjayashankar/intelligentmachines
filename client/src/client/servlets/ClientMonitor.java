@@ -14,6 +14,8 @@ public class ClientMonitor extends HttpServlet{
 		// TODO Auto-generated method stub
 		super.doGet(req, resp);
 		System.out.println("Get request");
+		
+		
 	}
 
 	@Override
