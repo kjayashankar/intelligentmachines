@@ -7,9 +7,10 @@ import reourcemodel.iot.PaymentOption;
 
 public class ClientMongoImpl {
 
+	public static Scanner in = new Scanner ( System.in );
+
 	public static void main(String[] args) {
 
-		Scanner in = new Scanner ( System.in );
 	    display_menu();
 	    int index = in.nextInt();
 		do{
@@ -96,11 +97,11 @@ public class ClientMongoImpl {
 	        break;
 	        
 	      case 3:
-	    	 /* Scanner b = new Scanner(System.in);
-	    	  String key = b.next();
-	    	  String value = b.next();
-	    	  b.close();*/
-			update("amount","900");
+	    	 System.out.println("Enter key and value");
+	    	  String key = in.next();
+	    	  String value = in.next();
+	    	  update(key,value);
+			//update("amount","900");
 	        break;
 			
 	      case 4:

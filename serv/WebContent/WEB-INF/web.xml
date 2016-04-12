@@ -9,4 +9,12 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+  <servlet-name>servermonitor</servlet-name>
+  <servlet-class>server.servlets.ServerMonitor</servlet-class>
+</servlet>
+ <servlet-mapping>
+  <servlet-name>servermonitor</servlet-name>
+  <url-pattern>/servermon/*</url-pattern>
+</servlet-mapping>
 </web-app>

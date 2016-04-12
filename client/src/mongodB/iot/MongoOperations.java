@@ -31,7 +31,6 @@ public class MongoOperations {
 		 MongoDatabase mongoDB = mongoC.getDatabase(databaseName);
 		 MongoCollection<Document> mongoCollection = mongoDB.getCollection(collection);
 		 FindIterable<Document> document = mongoCollection.find();
-		 System.out.println(document.first());
 		 T reg = null;
 		 try {
 		 reg = (T) (new ObjectMapper()).
@@ -68,18 +67,15 @@ public class MongoOperations {
 		return true;
 	}
 	
-	@SuppressWarnings("resource")
 	public <T> boolean updateRecord (String databaseName , String collection , String updateKey, String updateValue) {
 		
+		MongoClient mongoC = new MongoClient("localhost", 27017);
+
 		try{
-			MongoClient mongoC = new MongoClient("localhost", 27017);
 			MongoDatabase mongoDB = mongoC.getDatabase(databaseName);
 			MongoCollection<Document> mongoCollection = mongoDB.getCollection(collection);
 			FindIterable<Document> document = mongoCollection.find();
-			System.out.println(document.first());
 			JSONObject jSON = new JSONObject(document.first());
-			System.out.println(" JSON ===="+jSON.toString());
-			
 			jSON.put(updateKey, updateValue);
 			jSON.remove("_id");
 			mongoDB.getCollection(collection).updateOne(document.first(),
@@ -87,6 +83,9 @@ public class MongoOperations {
 			return true;
 		}
 		catch(Exception e) { e.printStackTrace(); return false;}
+		finally{
+			mongoC.close();
+		}
 		
 	}
 }

@@ -6,9 +6,10 @@ import resourcemodel.iot.ServerDetails;
 
 public class ServerMongoImpl {
 
+	static Scanner in = new Scanner ( System.in );
+
 	public static void main(String[] args) {
 		
-		Scanner in = new Scanner ( System.in );
 	    display_menu();
 	    int index = in.nextInt();
 		do{
