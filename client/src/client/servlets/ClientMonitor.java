@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import client.controllers.Client1;
+import client.controllers.Client1Bootstrap;
+
 public class ClientMonitor extends HttpServlet{
 
 	@Override
@@ -15,6 +18,14 @@ public class ClientMonitor extends HttpServlet{
 		super.doGet(req, resp);
 		System.out.println("Get request");
 		
+		// bootstrap
+		Client1Bootstrap.init();
+		
+		//register
+		new Client1().register();
+		
+		//unregister
+		new Client1().unregister();
 		
 	}
 

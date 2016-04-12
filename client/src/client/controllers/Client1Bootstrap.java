@@ -2,19 +2,9 @@ package client.controllers;
 
 import java.util.HashMap;
 
-import org.bson.Document;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.MongoClient;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-
-import jay.iot.client1.db.ClientMain;
-import jay.iot.client1.db.MClient;
-import jay.iot.commons.ClientRegDetails;
-import jay.iot.commons.Constants;
-import jay.iot.conn.Connection;
+import mongodB.iot.MongoOperations;
+import reourcemodel.iot.ClientDetails;
+import reourcemodel.iot.ClientMain;
 
 public class Client1Bootstrap {
 
@@ -25,7 +15,8 @@ public class Client1Bootstrap {
 	public static boolean init(){
 		
 		setSerialID(); 
-		ClientRegDetails reg = new MClient().getDBRecord("jay.iot.commons.ClientRegDetails", "register");
+		ClientDetails reg = new MongoOperations().readRecord(
+				ClientDetails.class,"client1", "register");
 		RestHelper rHelp = new RestHelper();
 		HashMap<String,String> hMap = rHelp.getMap(bootStrapServer(reg));
 		Client1.endServerUrl = hMap.get("serverURL");
@@ -34,18 +25,18 @@ public class Client1Bootstrap {
 
 	private static void setSerialID() {
 		
-		ClientMain reg = new MClient().getDBRecord("jay.iot.client1.db.ClientMain", "main");	 
+		ClientMain reg = new MongoOperations().readRecord(ClientMain.class,"client1", "main");	 
 		 Client1.serialID = reg.getSerialID();
 		 bootstrapURL = reg.getBootstrapURL();
 		
 	}
 
-	private static String bootStrapServer(ClientRegDetails reg) {
+	private static String bootStrapServer(ClientDetails reg) {
 
 		
 		HashMap<String,String> btServer = new HashMap<String,String>();
-		btServer.put("serialID", reg.getSerialNumber());
-		btServer.put("firmwareVersion", reg.getFirmwareVersion());
+		btServer.put("serialID", reg.getSerialNo());
+		btServer.put("firmwareVersion", reg.getFirmware());
 		btServer.put("soldLocation", "Canada");
 		btServer.put("presentLocation", "US");
 		
@@ -53,7 +44,7 @@ public class Client1Bootstrap {
 		try {
 		conn.acquire();
 		conn.setURL(bootstrapURL);
-		conn.setRequestType(Constants.POST);
+		conn.setRequestType("POST");
 		conn.setBody(btServer);
 		return conn.connect();
 		}

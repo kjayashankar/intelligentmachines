@@ -3,16 +3,11 @@ package client.controllers;
 import java.io.IOException;
 import java.util.HashMap;
 
-import org.bson.Document;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.MongoClient;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 
-import jay.iot.client1.db.MClient;
-import jay.iot.commons.ClientObj;
+import mongodB.iot.MongoOperations;
+import reourcemodel.iot.ClientDetails;
+import reourcemodel.iot.ServerDetails;
 
 public class RestHelper {
 
@@ -20,6 +15,7 @@ public class RestHelper {
 	
 	public static String collection = "personal";
 	
+	@SuppressWarnings("unchecked")
 	public HashMap<String,String> getMap(String badString) {
 
 		HashMap<String, String> hm = new HashMap<String, String>();
@@ -33,20 +29,16 @@ public class RestHelper {
 		
 	}
 
-	public ClientObj getDBRecord() {
+	public ClientDetails getDBRecord() {
 		
-		return new MClient().getDBRecord("jay.iot.commons.ClientObj", "personal");
+		return new MongoOperations().readRecord(ClientDetails.class,"client1", "personal");
 	}
 
-	public HashMap<String, String> getNecessaryFields(ClientObj client) {
+	public HashMap<String, String> getNecessaryFields(ClientDetails client) {
 		// TODO Auto-generated method stub
 		HashMap<String, String> hMap = new HashMap<String, String>();
 		hMap.put("manufacturer", client.getManufacturer());
-		hMap.put("modelNumber", client.getModelNumber());
-		hMap.put("serialNumber", client.getSerialNumber());
-		hMap.put("firmwareVersion", client.getFirmwareVersion());
-		hMap.put("Binding", client.getBinding());
-		hMap.put("UTCOffset", client.getUTCOffset());
+		
 		
 		return hMap;
 		
@@ -56,7 +48,7 @@ public class RestHelper {
 		Client1.unregisterUrl = fetchValues(responseMap, "unregisterUrl");
 		Client1.communicationUrl = fetchValues(responseMap, "communicationurl");
 		Client1.serverID = fetchValues(responseMap, "shortserverid");
-		new MClient().insertRecord(responseMap, Client1.serverID);
+		new MongoOperations().createRecord(ServerDetails.class,"server", Client1.serverID);
 	}
 	
 	public String fetchValues(HashMap<String, String> hM , String key) {
@@ -69,7 +61,7 @@ public class RestHelper {
 
 	public boolean unregisterServer(String serverID) {
 		
-		return new MClient().deleteRecord(serverID);
+		return new MongoOperations().deleteRecord("client1",serverID);
 		
 	}
 }
